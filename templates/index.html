@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10131c">
+  <title>TideStream — AI Web Research</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar"><a class="brand" href="/" aria-label="TideStream home"><span class="brand-mark">t</span> tide<span>stream</span></a><span class="status"><i></i> PUBLIC WEB RESEARCH</span></header>
+    <section class="hero">
+      <p class="eyebrow">A LITTLE CURIOSITY GOES A LONG WAY</p>
+      <h1>Find the signal<br>in <span>any page.</span></h1>
+      <p class="lede">Give TideStream a public webpage and a question. It’ll gather the readable text and, with an AI key configured, find the answer for you.</p>
+    </section>
+    <section class="panel" aria-label="Research request">
+      <form id="scrape-form">
+        <label for="url">PAGE URL</label>
+        <div class="url-wrap"><span aria-hidden="true">↗</span><input id="url" name="url" type="url" placeholder="https://example.com/article" required autocomplete="url"></div>
+        <label for="instruction">WHAT SHOULD I FIND?</label>
+        <textarea id="instruction" name="instruction" rows="3" maxlength="1000" placeholder="Summarize the main points, find the listed prices, compare the options…" required></textarea>
+        <div class="form-bottom"><p>Public pages only. Site crawling rules are respected.</p><button id="submit" type="submit">Research page <span>→</span></button></div>
+      </form>
+    </section>
+    <section id="result" class="result" aria-live="polite" hidden></section>
+    <footer>Thoughtful research, one page at a time <span>✳</span></footer>
+  </main>
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</body>
+</html>
