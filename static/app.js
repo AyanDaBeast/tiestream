@@ -38,15 +38,13 @@ form.addEventListener('submit', async (event) => {
 
     if (data.analysis) {
       const answer = el('div', 'answer');
-      answer.append(el('p', 'eyebrow', 'AI FINDINGS'), el('p', 'answer-copy', data.analysis));
+      answer.append(el('p', 'eyebrow', 'LOCAL AI FINDINGS'), el('p', 'answer-copy', data.analysis));
       result.append(answer);
     } else {
-      const note = el('p', 'notice', 'AI analysis is not configured yet. Add OPENAI_API_KEY to your environment to ask questions; readable page text is shown below.');
-      result.append(note);
+      result.append(el('p', 'notice', 'The page was scraped successfully. For AI answers without a paid API, install Ollama and download a local model (see the README). The extracted text is shown below.'));
     }
     const details = el('details', 'page-text');
-    const summary = el('summary', '', 'View extracted page text');
-    details.append(summary, el('pre', '', data.text));
+    details.append(el('summary', '', 'View extracted page text'), el('pre', '', data.text));
     result.append(details);
   } catch (error) {
     result.replaceChildren(el('p', 'error', error.message));
