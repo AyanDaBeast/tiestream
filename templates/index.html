@@ -9,23 +9,21 @@
 </head>
 <body>
   <main class="shell">
-    <header class="topbar"><a class="brand" href="/" aria-label="TideStream home"><span class="brand-mark">t</span> tide<span>stream</span></a><span class="status"><i></i> PUBLIC WEB RESEARCH</span></header>
+    <header class="topbar"><a class="brand" href="/" aria-label="TideStream home"><span class="brand-mark">t</span> tide<span>stream</span></a><span class="status"><i></i> LOCAL AI RESEARCH</span></header>
     <section class="hero">
       <p class="eyebrow">A LITTLE CURIOSITY GOES A LONG WAY</p>
-      <h1>Find the signal<br>in <span>any page.</span></h1>
-      <p class="lede">Give TideStream a public webpage and a question. It’ll gather the readable text and, with an AI key configured, find the answer for you.</p>
+      <h1>Tell it what<br>to <span>find.</span></h1>
+      <p class="lede">Write a request in plain English, add the public page or YouTube links, and TideStream will collect the readable text or available captions and research them for you.</p>
     </section>
     <section class="panel" aria-label="Research request">
       <form id="scrape-form">
-        <label for="url">PAGE URL</label>
-        <div class="url-wrap"><span aria-hidden="true">↗</span><input id="url" name="url" type="url" placeholder="https://example.com/article" required autocomplete="url"></div>
-        <label for="instruction">WHAT SHOULD I FIND?</label>
-        <textarea id="instruction" name="instruction" rows="3" maxlength="1000" placeholder="Summarize the main points, find the listed prices, compare the options…" required></textarea>
-        <div class="form-bottom"><p>Public pages only. Site crawling rules are respected.</p><button id="submit" type="submit">Research page <span>→</span></button></div>
+        <label for="prompt">YOUR RESEARCH PROMPT</label>
+        <textarea id="prompt" name="prompt" rows="5" maxlength="2000" placeholder="Compare the prices on these product pages and tell me which is cheapest:\nhttps://example.com/product-one\nhttps://example.com/product-two\n\nOr summarize this video's public captions: https://youtu.be/VIDEO_ID" required></textarea>
+        <div class="form-bottom"><p>Up to 5 public URLs per request. YouTube videos need available captions.</p><button id="submit" type="submit">Research <span>→</span></button></div>
       </form>
     </section>
     <section id="result" class="result" aria-live="polite" hidden></section>
-    <footer>Thoughtful research, one page at a time <span>✳</span></footer>
+    <footer>Free local AI with Ollama · Public pages and available captions only <span>✳</span></footer>
   </main>
   <script src="{{ url_for('static', filename='app.js') }}" defer></script>
 </body>

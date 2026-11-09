@@ -1,33 +1,29 @@
 # TideStream — AI Web Research
 
-A small web app that fetches a public HTML page, extracts readable text, and can answer a question about it using a local Ollama model. No paid API key or cloud AI service is required. It fetches one page at a time, follows redirects carefully, checks `robots.txt`, and refuses private/local website targets. It does not attempt to bypass access controls or anti-bot measures.
+A prompt-driven local web app: describe what you want to find, include up to five public webpage or YouTube URLs, and TideStream gathers readable page text or available public captions. A local Ollama model can analyze the sources for free; no paid AI API key is needed. It checks website `robots.txt`, validates public URLs and redirects, and does not attempt to bypass logins, paywalls, DRM, or anti-bot measures.
 
 ## Run locally
 
-Requires Python 3.10+ and [Ollama](https://ollama.com/) for local AI answers. The scraper itself works without Ollama.
+Requires Python 3.10+ and [Ollama](https://ollama.com/) for AI answers. Web text/captions can still be collected without Ollama.
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
 pip install -r requirements.txt
-```
-
-To enable free local AI answers, install and start Ollama, then download a model once:
-
-```bash
 ollama pull llama3.2
-```
-
-Then start the app:
-
-```bash
 python app.py
 ```
 
-Open <http://127.0.0.1:5000>. The app connects to Ollama at `http://127.0.0.1:11434/api/chat` and uses `llama3.2` by default. Change these with `OLLAMA_URL` and `OLLAMA_MODEL` if needed. The model runs on your computer; model downloads use disk space, but there is no per-request API charge. If you do not install Ollama, the app still fetches pages and shows their extracted text.
+Open <http://127.0.0.1:5000>. Start Ollama in the background. TideStream connects to `http://127.0.0.1:11434/api/chat`, using `llama3.2` by default. Change the model with `OLLAMA_MODEL` or endpoint with `OLLAMA_URL`. Ollama runs the model on your computer, so there is no per-request AI charge; model downloads need disk space and your computer needs enough memory.
 
-The backend accepts one page per request (up to 2 MB), checks the destination and each redirect, honors the destination's `robots.txt`, and does not crawl links.
+## Using the prompt
 
-## Notes
+Write what you want to collect or compare and include the source URL(s) in the same prompt. Up to five URLs are read per request. Example:
 
-Only use this on pages you are allowed to access and process. A site's `robots.txt` is an automated-crawling signal, not a substitute for its terms or applicable law. Some sites may block automated requests, require JavaScript, or return content this simple extractor cannot read; the app does not evade those restrictions.
+> Compare the main features and listed prices on these pages: https://example.com/item-a https://example.com/item-b
+
+For video, add a YouTube URL and ask for a summary or key points. Video support uses available public captions/transcripts only; it does not download video or extract audio. Other video platforms and videos without available captions are not supported yet. For general web discovery without giving a URL, a search provider would be needed; this first version uses the URLs you provide.
+
+## Limits and responsible use
+
+The app fetches one page per URL and does not crawl entire sites. It accepts public HTTP(S) URLs on standard ports and caps each HTML page at 2 MB. `robots.txt` is an automated-crawling signal, not a substitute for site terms or applicable law. Some sites may block automated requests, require JavaScript, or return content the simple extractor cannot read. Only use sources you are allowed to access and process.
